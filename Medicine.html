@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MediFind - Medicine Finder</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f8f9;
+    color: #18323a;
+}
+
+/* NAVBAR */
+nav {
+    background: #087f8c;
+    color: white;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 15px;
+}
+
+/* HERO */
+.hero {
+    background: linear-gradient(135deg, #087f8c, #064c55);
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.hero h1 span {
+    color: #7ff5ed;
+}
+
+.hero p {
+    max-width: 650px;
+    margin: auto;
+    line-height: 1.7;
+    color: #e4ffff;
+}
+
+/* SEARCH */
+.search-box {
+    max-width: 700px;
+    margin: 30px auto 0;
+    display: flex;
+    background: white;
+    padding: 6px;
+    border-radius: 12px;
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 15px;
+    font-size: 16px;
+}
+
+.search-box button {
+    border: none;
+    background: #087f8c;
+    color: white;
+    padding: 0 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* SECTION */
+section {
+    padding: 65px 7%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-title h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: #65777c;
+}
+
+/* CATEGORIES */
+.categories {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.category {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #e0e8e9;
+    transition: 0.3s;
+}
+
+.category:hover {
+    transform: translateY(-5px);
+    border-color: #087f8c;
+}
+
+.category .icon {
+    font-size: 35px;
+    margin-bottom: 12px;
+}
+
+.category h3 {
+    font-size: 16px;
+}
+
+/* FINDER */
+.finder {
+    background: #eaf6f7;
+}
+
+.filters {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.filters input,
+.filters select {
+    padding: 14px;
+    border: 1px solid #ccdadd;
+    border-radius: 8px;
+    outline: none;
+    background: white;
+}
+
+.filters input {
+    flex: 1;
+}
+
+/* DEMO */
+.demo {
+    background: #fff5d6;
+    border-left: 5px solid #e3a500;
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* RESULTS */
+.results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #dfe8e9;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.06);
+}
+
+.medicine-info {
+    padding: 22px;
+    border-bottom: 1px solid #edf1f2;
+}
+
+.medicine-name {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.generic {
+    color: #087f8c;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.tag {
+    display: inline-block;
+    background: #e3f5f5;
+    color: #087f8c;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* AVAILABILITY */
+.availability {
+    padding: 20px 22px;
+}
+
+.availability-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.status {
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.available {
+    background: #ddf5e7;
+    color: #168344;
+}
+
+.limited {
+    background: #fff0c9;
+    color: #996b00;
+}
+
+.out {
+    background: #ffe2e2;
+    color: #bd2525;
+}
+
+/* LOCATION */
+.location {
+    background: #f6f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.location h4 {
+    margin-bottom: 5px;
+}
+
+.location p {
+    color: #68797d;
+    font-size: 13px;
+}
+
+.stock {
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.updated {
+    color: #849397;
+    font-size: 11px;
+}
+
+/* BUTTONS */
+.buttons {
+    display: flex;
+    gap: 10px;
+    padding: 0 22px 22px;
+}
+
+.btn {
+    flex: 1;
+    padding: 11px;
+    border-radius: 8px;
+    border: 1px solid #d5e1e3;
+    background: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.btn-primary {
+    background: #087f8c;
+    color: white;
+    border-color: #087f8c;
+}
+
+/* NO RESULT */
+.no-result {
+    grid-column: 1 / -1;
+    text-align: center;
+    background: white;
+    padding: 60px 20px;
+    border-radius: 15px;
+}
+
+.no-result h3 {
+    margin-bottom: 8px;
+}
+
+.no-result p {
+    color: #68797d;
+}
+
+/* SAFETY */
+.safety {
+    background: white;
+}
+
+.safety-box {
+    max-width: 850px;
+    margin: auto;
+    background: #f0f9fa;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.safety-box h3 {
+    margin-bottom: 15px;
+}
+
+.safety-box ul {
+    padding-left: 20px;
+}
+
+.safety-box li {
+    margin: 12px 0;
+    line-height: 1.5;
+}
+
+/* FOOTER */
+footer {
+    background: #102a32;
+    color: white;
+    text-align: center;
+    padding: 35px 20px;
+}
+
+footer p {
+    color: #b9c8ca;
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+/* MOBILE */
+@media(max-width: 800px) {
+
+    nav {
+        padding: 15px 5%;
+    }
+
+    nav div:last-child {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .categories {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .results {
+        grid-template-columns: 1fr;
+    }
+
+    .filters {
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 500px) {
+
+    .categories {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .search-box {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .search-box button {
+        padding: 14px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <div class="logo">
+        💊 MediFind
+    </div>
+
+    <div>
+        <a href="#home">Home</a>
+        <a href="#categories">Categories</a>
+        <a href="#finder">Find Medicine</a>
+        <a href="#safety">Safety</a>
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<div class="hero" id="home">
+
+    <h1>
+        Find Your <span>Medicine</span>
+    </h1>
+
+    <p>
+        Search for a medicine and check example
+        hospital and pharmacy availability.
+    </p>
+
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="mainSearch"
+            placeholder="Search medicine e.g. Paracetamol"
+        >
+
+        <button onclick="mainSearch()">
+            Search
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- CATEGORIES -->
+
+<section id="categories">
+
+    <div class="section-title">
+
+        <h2>Medicine Categories</h2>
+
+        <p>
+            Choose a category to explore medicines
+        </p>
+
+    </div>
+
+
+    <div class="categories">
+
+        <div
+            class="category"
+            onclick="categorySearch('Pain Relief')"
+        >
+
+            <div class="icon">💊</div>
+
+            <h3>Pain Relief</h3>
+
+        </div>
+
+
+        <div
+            class="category"
+            onclick="categorySearch('Antibiotic')"
+        >
+
+            <div class="icon">🧪</div>
+
+            <h3>Antibiotics</h3>
+
+        </div>
+
+
+        <div
+            class="category"
+            onclick="categorySearch('Allergy')"
+        >
+
+            <div class="icon">🌿</div>
+
+            <h3>Allergy</h3>
+
+        </div>
+
+
+        <div
+            class="category"
+            onclick="categorySearch('Digestive')"
+        >
+
+            <div class="icon">🩺</div>
+
+            <h3>Digestive</h3>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- FINDER -->
+
+<section
+    class="finder"
+    id="finder"
+>
+
+    <div class="section-title">
+
+        <h2>Medicine Availability</h2>
+
+        <p>
+            Search medicine and see example locations
+        </p>
+
+    </div>
+
+
+    <div class="demo">
+
+        <strong>⚠ Demo Data:</strong>
+
+        The hospital/pharmacy availability displayed
+        here is sample data for this student project.
+        It is not real-time stock information.
+
+    </div>
+
+
+    <div class="filters">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search medicine..."
+            oninput="showResults()"
+        >
+
+
+        <select
+            id="categoryFilter"
+            onchange="showResults()"
+        >
+
+            <option value="All">
+                All Categories
+            </option>
+
+            <option value="Pain Relief">
+                Pain Relief
+            </option>
+
+            <option value="Antibiotic">
+                Antibiotic
+            </option>
+
+            <option value="Allergy">
+                Allergy
+            </option>
+
+            <option value="Digestive">
+                Digestive
+            </option>
+
+        </select>
+
+
+        <select
+            id="stockFilter"
+            onchange="showResults()"
+        >
+
+            <option value="All">
+                All Stock
+            </option>
+
+            <option value="Available">
+                Available
+            </option>
+
+            <option value="Limited">
+                Limited
+            </option>
+
+            <option value="Out of Stock">
+                Out of Stock
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div
+        class="results"
+        id="results"
+    ></div>
+
+</section>
+
+
+<!-- SAFETY -->
+
+<section
+    class="safety"
+    id="safety"
+>
+
+    <div class="section-title">
+
+        <h2>Medicine Safety</h2>
+
+        <p>
+            Important information for users
+        </p>
+
+    </div>
+
+
+    <div class="safety-box">
+
+        <h3>⚠ Important</h3>
+
+        <ul>
+
+            <li>
+                Always verify medicine availability
+                directly with the hospital or pharmacy.
+            </li>
+
+            <li>
+                Medicine availability can change at any time.
+            </li>
+
+            <li>
+                Do not use this website as a substitute
+                for professional medical advice.
+            </li>
+
+            <li>
+                Prescription medicines should be used
+                only under appropriate professional guidance.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="logo">
+        💊 MediFind
+    </div>
+
+    <p>
+        Medicine Finder & Availability Project
+    </p>
+
+    <p>
+        © 2026 MediFind
+    </p>
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   MEDICINE DATABASE
+===================================================== */
+
+const medicines = [
+
+    {
+        name: "Paracetamol 500 mg",
+        generic: "Paracetamol",
+        category: "Pain Relief",
+
+        locations: [
+
+            {
+                place: "City Care Hospital",
+                city: "Srikakulam",
+                status: "Available",
+                stock: "Good availability",
+                updated: "10 minutes ago"
+            },
+
+            {
+                place: "HealthPlus Pharmacy",
+                city: "Srikakulam",
+                status: "Limited",
+                stock: "Limited stock",
+                updated: "15 minutes ago"
+            },
+
+            {
+                place: "Community Medical Store",
+                city: "Srikakulam",
+                status: "Out of Stock",
+                stock: "Currently unavailable",
+                updated: "25 minutes ago"
+            }
+
+        ]
+    },
+
+
+    {
+        name: "Ibuprofen",
+        generic: "Ibuprofen",
+        category: "Pain Relief",
+
+        locations: [
+
+            {
+                place: "Sunrise Hospital",
+                city: "Srikakulam",
+                status: "Available",
+                stock: "Good availability",
+                updated: "12 minutes ago"
+            },
+
+            {
+                place: "Wellness Pharmacy",
+                city: "Srikakulam",
+                status: "Limited",
+                stock: "Limited stock",
+                updated: "20 minutes ago"
+            }
+
+        ]
+    },
+
+
+    {
+        name: "Amoxicillin",
+        generic: "Amoxicillin",
+        category: "Antibiotic",
+
+        locations: [
+
+            {
+                place: "City Care Hospital",
+                city: "Srikakulam",
+                status: "Available",
+                stock: "Available",
+                updated: "8 minutes ago"
+            },
+
+            {
+                place: "Family Pharmacy",
+                city: "Srikakulam",
+                status: "Out of Stock",
+                stock: "Currently unavailable",
+                updated: "30 minutes ago"
+            }
+
+        ]
+    },
+
+
+    {
+        name: "Cetirizine",
+        generic: "Cetirizine",
+        category: "Allergy",
+
+        locations: [
+
+            {
+                place: "Wellness Pharmacy",
+                city: "Srikakulam",
+                status: "Available",
+                stock: "Good availability",
+                updated: "10 minutes ago"
+            },
+
+            {
+                place: "Community Hospital",
+                city: "Srikakulam",
+                status: "Limited",
+                stock: "Limited stock",
+                updated: "22 minutes ago"
+            }
+
+        ]
+    },
+
+
+    {
+        name: "Omeprazole",
+        generic: "Omeprazole",
+        category: "Digestive",
+
+        locations: [
+
+            {
+                place: "General Hospital",
+                city: "Srikakulam",
+                status: "Available",
+                stock: "Good availability",
+                updated: "9 minutes ago"
+            }
+
+        ]
+    },
+
+
+    {
+        name: "ORS",
+        generic: "Oral Rehydration Solution",
+        category: "Digestive",
+
+        locations: [
+
+            {
+                place: "Community Pharmacy",
+                city: "Srikakulam",
+                status: "Available",
+                stock: "Good availability",
+                updated: "5 minutes ago"
+            },
+
+            {
+                place: "City Care Hospital",
+                city: "Srikakulam",
+                status: "Limited",
+                stock: "Limited stock",
+                updated: "17 minutes ago"
+            }
+
+        ]
+    }
+
+];
+
+
+/* =====================================================
+   SHOW RESULTS
+===================================================== */
+
+function showResults() {
+
+    const search =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const category =
+        document
+        .getElementById("categoryFilter")
+        .value;
+
+
+    const stock =
+        document
+        .getElementById("stockFilter")
+        .value;
+
+
+    const resultBox =
+        document.getElementById("results");
+
+
+    resultBox.innerHTML = "";
+
+
+    let found = false;
+
+
+    medicines.forEach(function(medicine) {
+
+
+        const medicineMatches =
+
+            medicine.name
+            .toLowerCase()
+            .includes(search)
+
+            ||
+
+            medicine.generic
+            .toLowerCase()
+            .includes(search);
+
+
+        const categoryMatches =
+
+            category === "All"
+
+            ||
+
+            medicine.category === category;
+
+
+        if (
+            medicineMatches &&
+            categoryMatches
+        ) {
+
+
+            medicine.locations.forEach(function(location) {
+
+
+                const stockMatches =
+
+                    stock === "All"
+
+                    ||
+
+                    location.status === stock;
+
+
+                if (!stockMatches) {
+                    return;
+                }
+
+
+                found = true;
+
+
+                let statusClass = "";
+
+
+                if (
+                    location.status === "Available"
+                ) {
+
+                    statusClass = "available";
+
+                }
+
+                else if (
+                    location.status === "Limited"
+                ) {
+
+                    statusClass = "limited";
+
+                }
+
+                else {
+
+                    statusClass = "out";
+
+                }
+
+
+                const card =
+                    document.createElement("div");
+
+
+                card.className = "card";
+
+
+                card.innerHTML = `
+
+                    <div class="medicine-info">
+
+                        <div class="medicine-name">
+
+                            ${medicine.name}
+
+                        </div>
+
+                        <div class="generic">
+
+                            Generic name:
+                            ${medicine.generic}
+
+                        </div>
+
+                        <span class="tag">
+
+                            ${medicine.category}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="availability">
+
+                        <div class="availability-title">
+
+                            <strong>
+                                Availability
+                            </strong>
+
+                            <span class="status ${statusClass}">
+
+                                ${location.status}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="location">
+
+                            <h4>
+                                🏥 ${location.place}
+                            </h4>
+
+                            <p>
+                                📍 ${location.city}
+                            </p>
+
+                        </div>
+
+
+                        <div class="stock">
+
+                            Stock:
+                            <strong>
+                                ${location.stock}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="updated">
+
+                            Last updated:
+                            ${location.updated}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="buttons">
+
+                        <button
+                            class="btn btn-primary"
+                            onclick="showDetails(
+                                '${medicine.name}',
+                                '${location.place}',
+                                '${location.status}',
+                                '${location.city}'
+                            )"
+                        >
+                            View Details
+                        </button>
+
+
+                        <button
+                            class="btn"
+                            onclick="openMap('${location.place}, ${location.city}')"
+                        >
+                            📍 Map
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                resultBox.appendChild(card);
+
+            });
+
+        }
+
+    });
+
+
+    if (!found) {
+
+        resultBox.innerHTML = `
+
+            <div class="no-result">
+
+                <h3>
+                    🔍 Medicine Not Found
+                </h3>
+
+                <p>
+                    Try searching for Paracetamol,
+                    Ibuprofen, Amoxicillin, Cetirizine,
+                    Omeprazole or ORS.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   MAIN SEARCH
+===================================================== */
+
+function mainSearch() {
+
+    const value =
+        document
+        .getElementById("mainSearch")
+        .value;
+
+
+    document
+    .getElementById("searchInput")
+    .value = value;
+
+
+    document
+    .getElementById("categoryFilter")
+    .value = "All";
+
+
+    document
+    .getElementById("stockFilter")
+    .value = "All";
+
+
+    document
+    .getElementById("finder")
+    .scrollIntoView({
+        behavior: "smooth"
+    });
+
+
+    showResults();
+
+}
+
+
+/* =====================================================
+   ENTER KEY SEAR
